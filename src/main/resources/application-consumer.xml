@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="consumerConfig" class="org.spring.integeration.kafka.consumer.config.KafkaConsumerConfig">
+        <property name="zkConnect" value="127.0.0.1:2181"/>
+        <property name="zkSessionTimeoutMs" value="12000"/>
+        <property name="zkSyncTimeMs" value="200"/>
+        <property name="autoCommitIntervalMs" value="1000"/>
+    </bean>
+
+    <bean id="consumerContainer" class="org.spring.integeration.kafka.consumer.KafkaConsumerContainer">
+        <constructor-arg name="kafkaConsumerConfig" ref="consumerConfig"/>
+    </bean>
+
+    <bean id="demoConsumer" class="com.kafka.sample.DemoTopicKafkaConsumerImpl">
+        <constructor-arg name="consumerContainer" ref="consumerContainer"/>
+        <constructor-arg name="groupId" value="demo-group-id"/>
+        <constructor-arg name="topic" value="demo-topic"/>
+    </bean>
+
+</beans>

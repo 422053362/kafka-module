@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="producerConfig" class="org.spring.integeration.kafka.producer.config.KafkaProducerConfig">
+        <property name="ack" value="-1"/>
+        <property name="brokers" value="localhost:9092"/>
+        <property name="serializerClass" value="kafka.serializer.StringEncoder"/>
+    </bean>
+
+    <bean id="demoProducer" class="org.spring.integeration.kafka.producer.KafKaProducerImpl">
+        <constructor-arg name="kafkaProducerConfig" ref="producerConfig"/>
+        <constructor-arg name="topic" value="demo-topic"/>
+    </bean>
+
+</beans>
